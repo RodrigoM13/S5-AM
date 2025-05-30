@@ -9,10 +9,14 @@ import android.text.TextWatcher
 import android.widget.EditText
 
 class IndexActivity : AppCompatActivity() {
-
+    
+    // RecyclerView que mostrará la lista de doctores
     private lateinit var recyclerView: RecyclerView
+    // Adaptador personalizado para la lista de doctores
     private lateinit var doctorAdapter: DoctorAdapter
+    // Campo de texto para búsqueda y filtrado de doctores
     private lateinit var editTextBuscar: EditText
+    // Lista original completa de doctores sin filtrar    
     private lateinit var listaDoctoresOriginal: List<Doctor>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +26,8 @@ class IndexActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewDoctors)
         recyclerView.layoutManager = LinearLayoutManager(this)
         editTextBuscar = findViewById(R.id.editTextBuscar)
-
+        
+        // Inicializa la lista original con todos los doctores (hardcodeados)
         listaDoctoresOriginal = listOf(
                 Doctor("Traumotología", "Dr. Alberto Garcia Cerna", "987654321", "08:00 - 14:00"),
                 Doctor("Traumotología", "Dr. Cruz Medina Martinez", "976543218", "08:00 - 14:00"),
@@ -94,6 +99,7 @@ class IndexActivity : AppCompatActivity() {
         doctorAdapter = DoctorAdapter(listaDoctoresOriginal.toMutableList())
         recyclerView.adapter = doctorAdapter
 
+        // Se agrega un listener para detectar cambios en el EditText de búsqueda
         editTextBuscar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val texto = s.toString().lowercase()
