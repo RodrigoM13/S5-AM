@@ -28,7 +28,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
-
+    
+    //Muestra un diálogo personalizado para que el usuario ingrese su nombre de usuario y contraseña.
     private fun showLoginDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_login, null)
         val usernameEditText = dialogView.findViewById<EditText>(R.id.etUsernameDialog)
@@ -49,7 +50,9 @@ class LoginActivity : AppCompatActivity() {
 
                 if (username.isEmpty() || password.isEmpty()) {
                     Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
-                } else if (UserStorage.validateUser(username, password)) {
+                } 
+                // Validar credenciales usando UserStorage (clase externa que gestiona usuarios)
+                else if (UserStorage.validateUser(username, password)) {
                     startActivity(Intent(this, IndexActivity::class.java).apply {
                         putExtra("username", username)
                     })
